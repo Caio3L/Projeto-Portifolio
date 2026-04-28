@@ -1,0 +1,202 @@
+/* ============================================================
+   MOBILE.CSS — Responsividade
+   ============================================================ */
+
+/* ============================================================
+   TABLET (≤ 1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+  .projetos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sobre-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .sobre-image {
+    display: flex;
+    justify-content: center;
+  }
+
+  .sobre-image-wrapper {
+    max-width: 300px;
+  }
+
+  .skills-grid {
+    justify-content: center;
+  }
+
+  .sobre-texto .btn {
+    margin: 0 auto;
+    display: inline-flex;
+  }
+
+  .contato-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .contato-info {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .contato-item {
+    flex: 1 1 220px;
+  }
+}
+
+/* ============================================================
+   MOBILE GRANDE (≤ 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  :root {
+    --nav-height: 60px;
+  }
+
+  /* --- Navbar --- */
+  .hamburger {
+    display: flex !important;
+  }
+
+  #menu {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px 20px 24px;
+    gap: 4px;
+    transform: translateY(-110%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+  }
+
+  #menu.open {
+    transform: translateY(0);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  }
+
+  .nav-link {
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+  }
+
+  /* --- Hero --- */
+  .hero-title {
+    font-size: clamp(2.8rem, 12vw, 4.5rem);
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .br-desktop {
+    display: none;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* --- Projetos --- */
+  .projetos-grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    margin-inline: auto;
+  }
+
+  /* --- Contato --- */
+  .contato-info {
+    flex-direction: column;
+  }
+
+  .contato-form {
+    padding: 24px 20px;
+  }
+
+  /* --- Footer --- */
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* --- Sections --- */
+  .section {
+    padding: 70px 0;
+  }
+
+  .section-header {
+    margin-bottom: 40px;
+  }
+}
+
+/* ============================================================
+   MOBILE PEQUENO (≤ 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: clamp(2.4rem, 14vw, 3.5rem);
+  }
+
+  .hero-tag {
+    font-size: 0.95rem;
+  }
+
+  .section-title {
+    font-size: 1.7rem;
+  }
+
+  .sobre-image-wrapper {
+    max-width: 240px;
+  }
+
+  .card-body {
+    padding: 18px 18px 22px;
+  }
+
+  .contato-form {
+    padding: 20px 16px;
+  }
+
+  .skills-grid {
+    gap: 8px;
+  }
+
+  .skill-badge {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  .hero-scroll-indicator {
+    display: none;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION — Acessibilidade
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

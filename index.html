@@ -1,15 +1,305 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content=" "width-device-width, initial-scale=1.0">
-    <title>Portfólio Caio Lobato</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Portfólio profissional de Caio Lobato — Desenvolvedor Web. Conheça meus projetos, habilidades e entre em contato." />
+    <title>Caio Lobato | Desenvolvedor Web</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="estilos/style.css" />
+    <link rel="stylesheet" href="estilos/mobile.css" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   </head>
   <body>
-    <header></header>
-    <main><h1>Em breve...</h1></main>
-    <footer></footer>
+
+    <!-- ===== HEADER / NAVBAR ===== -->
+    <header id="header">
+      <nav class="navbar container" aria-label="Navegação principal">
+        <a href="#home" class="nav-logo">
+          <span class="logo-bracket">&lt;</span>Caio<span class="logo-accent">Lobato</span><span class="logo-bracket">/&gt;</span>
+        </a>
+
+        <ul id="menu" role="list">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#sobre" class="nav-link">Sobre</a></li>
+          <li><a href="#projetos" class="nav-link">Projetos</a></li>
+          <li><a href="#contato" class="nav-link">Contato</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button id="botao-tema" class="btn-icon" aria-label="Alternar tema" title="Alternar tema claro/escuro">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          <button id="menu-hamburguer" class="btn-icon hamburger" aria-label="Abrir menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+
+      <!-- ===== HERO ===== -->
+      <section id="home" class="hero-section">
+        <div class="hero-bg-glow"></div>
+        <div class="container hero-content">
+          <p class="hero-tag animate-fade-up">👋 Olá, mundo! Eu sou</p>
+          <h1 class="hero-title animate-fade-up delay-1">
+            Caio<br /><span class="gradient-text">Lobato</span>
+          </h1>
+          <p class="hero-subtitle animate-fade-up delay-2">
+            Desenvolvedor Web apaixonado por criar experiências digitais<br class="br-desktop" /> bonitas, funcionais e acessíveis.
+          </p>
+          <div class="hero-cta animate-fade-up delay-3">
+            <a href="#projetos" class="btn btn-primary">Ver projetos <i class="fa-solid fa-arrow-down"></i></a>
+            <a href="#contato" class="btn btn-outline">Fale comigo</a>
+          </div>
+        </div>
+        <div class="hero-scroll-indicator">
+          <span></span>
+        </div>
+      </section>
+
+      <!-- ===== SOBRE ===== -->
+      <section id="sobre" class="section">
+        <div class="container sobre-grid">
+          <div class="sobre-image reveal">
+            <div class="sobre-image-wrapper">
+              <img src="imagens/guanabara-perfil.jpg" alt="Foto de perfil de Caio Lobato" loading="lazy" />
+              <div class="image-glow"></div>
+            </div>
+          </div>
+          <div class="sobre-texto reveal delay-1">
+            <span class="section-tag">Quem sou eu</span>
+            <h2 class="section-title">Sobre <span class="gradient-text">Mim</span></h2>
+            <p>
+              Sou estudante de Desenvolvimento Web com foco em criar interfaces modernas e funcionais.
+              Apaixonado por tecnologia e design, busco unir código limpo com experiências visuais de alto nível.
+            </p>
+            <p>
+              Tenho explorado o universo do front-end com HTML, CSS e JavaScript, construindo projetos reais
+              que me desafiaram a pensar como desenvolvedor e a resolver problemas criativamente.
+            </p>
+            <div class="skills-grid">
+              <span class="skill-badge"><i class="fa-brands fa-html5"></i> HTML5</span>
+              <span class="skill-badge"><i class="fa-brands fa-css3-alt"></i> CSS3</span>
+              <span class="skill-badge"><i class="fa-brands fa-js"></i> JavaScript</span>
+              <span class="skill-badge"><i class="fa-brands fa-git-alt"></i> Git</span>
+              <span class="skill-badge"><i class="fa-brands fa-github"></i> GitHub</span>
+              <span class="skill-badge"><i class="fa-solid fa-mobile-screen"></i> Responsivo</span>
+            </div>
+            <a href="#projetos" class="btn btn-primary">Ver meus projetos <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== PROJETOS ===== -->
+      <section id="projetos" class="section section-alt">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-tag">O que eu construí</span>
+            <h2 class="section-title">Meus <span class="gradient-text">Projetos</span></h2>
+            <p class="section-desc">Uma seleção dos projetos que desenvolvi durante minha jornada de aprendizado.</p>
+          </div>
+
+          <div class="projetos-grid">
+
+            <article class="card-projeto reveal" id="proj-videos">
+              <div class="card-imagem">
+                <img src="imagens/projeto-01-videos.jpg" alt="Projeto Curso em Vídeo" loading="lazy" />
+                <div class="card-overlay">
+                  <a href="#" class="btn-card" aria-label="Ver projeto de vídeos">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver projeto
+                  </a>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="card-tags">
+                  <span>HTML</span><span>CSS</span>
+                </div>
+                <h3 class="card-titulo">Curso em Vídeo</h3>
+                <p class="card-desc">Página inspirada no layout do portal Curso em Vídeo, praticando estruturação semântica e estilização.</p>
+              </div>
+            </article>
+
+            <article class="card-projeto reveal delay-1" id="proj-cordel">
+              <div class="card-imagem">
+                <img src="imagens/projeto-02-cordel.jpg" alt="Projeto Cordel Moderno" loading="lazy" />
+                <div class="card-overlay">
+                  <a href="#" class="btn-card" aria-label="Ver projeto cordel">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver projeto
+                  </a>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="card-tags">
+                  <span>HTML</span><span>CSS</span>
+                </div>
+                <h3 class="card-titulo">Cordel Moderno</h3>
+                <p class="card-desc">Página de literatura de cordel com design responsivo e tipografia expressiva.</p>
+              </div>
+            </article>
+
+            <article class="card-projeto reveal delay-2" id="proj-android">
+              <div class="card-imagem">
+                <img src="imagens/projeto-03-android.jpg" alt="Projeto Android" loading="lazy" />
+                <div class="card-overlay">
+                  <a href="#" class="btn-card" aria-label="Ver projeto android">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver projeto
+                  </a>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="card-tags">
+                  <span>HTML</span><span>CSS</span>
+                </div>
+                <h3 class="card-titulo">Android Histórico</h3>
+                <p class="card-desc">Página sobre a história do mascote do Android com layout visual moderno.</p>
+              </div>
+            </article>
+
+            <article class="card-projeto reveal" id="proj-links">
+              <div class="card-imagem">
+                <img src="imagens/projeto-04-links.jpg" alt="Projeto Links do Guanabara" loading="lazy" />
+                <div class="card-overlay">
+                  <a href="#" class="btn-card" aria-label="Ver projeto links">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver projeto
+                  </a>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="card-tags">
+                  <span>HTML</span><span>CSS</span><span>JS</span>
+                </div>
+                <h3 class="card-titulo">Links Sociais</h3>
+                <p class="card-desc">Página de links agrupados, estilo Linktree, com design clean e responsivo.</p>
+              </div>
+            </article>
+
+            <article class="card-projeto reveal delay-1" id="proj-login">
+              <div class="card-imagem">
+                <img src="imagens/projeto-05-login.jpg" alt="Projeto Tela de Login" loading="lazy" />
+                <div class="card-overlay">
+                  <a href="#" class="btn-card" aria-label="Ver projeto login">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver projeto
+                  </a>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="card-tags">
+                  <span>HTML</span><span>CSS</span><span>JS</span>
+                </div>
+                <h3 class="card-titulo">Tela de Login</h3>
+                <p class="card-desc">Formulário de login com validação, estilização moderna e efeitos de foco.</p>
+              </div>
+            </article>
+
+            <article class="card-projeto reveal delay-2" id="proj-album">
+              <div class="card-imagem">
+                <img src="imagens/projeto-06-album.jpg" alt="Projeto Álbum de Fotos" loading="lazy" />
+                <div class="card-overlay">
+                  <a href="#" class="btn-card" aria-label="Ver projeto álbum">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver projeto
+                  </a>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="card-tags">
+                  <span>HTML</span><span>CSS</span><span>JS</span>
+                </div>
+                <h3 class="card-titulo">Álbum de Fotos</h3>
+                <p class="card-desc">Galeria de fotos interativa com efeitos de zoom e navegação suave.</p>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CONTATO ===== -->
+      <section id="contato" class="section">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-tag">Vamos conversar</span>
+            <h2 class="section-title">Entre em <span class="gradient-text">Contato</span></h2>
+            <p class="section-desc">Estou sempre aberto a novas oportunidades, colaborações ou uma boa conversa sobre tecnologia.</p>
+          </div>
+
+          <div class="contato-grid">
+            <div class="contato-info reveal">
+              <div class="contato-item">
+                <div class="contato-icon"><i class="fa-brands fa-github"></i></div>
+                <div>
+                  <span class="contato-label">GitHub</span>
+                  <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="contato-link">github.com/caiolobato</a>
+                </div>
+              </div>
+              <div class="contato-item">
+                <div class="contato-icon"><i class="fa-brands fa-linkedin"></i></div>
+                <div>
+                  <span class="contato-label">LinkedIn</span>
+                  <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" class="contato-link">linkedin.com/in/caiolobato</a>
+                </div>
+              </div>
+              <div class="contato-item">
+                <div class="contato-icon"><i class="fa-solid fa-envelope"></i></div>
+                <div>
+                  <span class="contato-label">E-mail</span>
+                  <a href="mailto:caio@email.com" class="contato-link">caio@email.com</a>
+                </div>
+              </div>
+            </div>
+
+            <form class="contato-form reveal delay-1" id="form-contato" novalidate>
+              <div class="form-group">
+                <label for="input-nome">Nome</label>
+                <input type="text" id="input-nome" name="nome" placeholder="Seu nome" required />
+              </div>
+              <div class="form-group">
+                <label for="input-email">E-mail</label>
+                <input type="email" id="input-email" name="email" placeholder="seu@email.com" required />
+              </div>
+              <div class="form-group">
+                <label for="input-mensagem">Mensagem</label>
+                <textarea id="input-mensagem" name="mensagem" rows="5" placeholder="Olá, gostaria de..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" id="btn-enviar">
+                Enviar mensagem <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer id="rodape">
+      <div class="container footer-content">
+        <p class="footer-copy">
+          &copy; <span id="ano-atual"></span> — Feito com <i class="fa-solid fa-heart footer-heart"></i> por <strong>Caio Lobato</strong>
+        </p>
+        <div class="footer-social">
+          <a href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="social-icon"><i class="fa-brands fa-github"></i></a>
+          <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-icon"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="mailto:caio@email.com" aria-label="E-mail" class="social-icon"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+    </footer>
+
     <script src="scripts/script.js"></script>
   </body>
 </html>
