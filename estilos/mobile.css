@@ -59,6 +59,13 @@
   }
 
   /* --- Navbar --- */
+  #header {
+    background: var(--header-bg);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    backdrop-filter: blur(14px) saturate(160%);
+    box-shadow: 0 1px 0 var(--border);
+  }
+
   .hamburger {
     display: flex !important;
   }
@@ -77,11 +84,17 @@
     transform: translateY(-110%);
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 999;
+    max-height: calc(100dvh - var(--nav-height));
+    overflow-y: auto;
+    pointer-events: none;
+    visibility: hidden;
   }
 
   #menu.open {
     transform: translateY(0);
     box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    pointer-events: auto;
+    visibility: visible;
   }
 
   .nav-link {

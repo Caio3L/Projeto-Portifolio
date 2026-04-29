@@ -19,24 +19,31 @@
 const botaoTema  = document.getElementById('botao-tema');
 const htmlEl     = document.documentElement; // <html data-theme="...">
 
+function normalizarTema(tema) {
+  if (tema === 'escuro') return 'dark';
+  if (tema === 'claro') return 'light';
+  return tema === 'light' ? 'light' : 'dark';
+}
+
 function aplicarTema(tema) {
-  htmlEl.setAttribute('data-theme', tema);
+  const temaNormalizado = normalizarTema(tema);
+  htmlEl.setAttribute('data-theme', temaNormalizado);
   const icone = botaoTema.querySelector('i');
   if (icone) {
-    icone.className = tema === 'escuro' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    icone.className = temaNormalizado === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
   }
-  botaoTema.setAttribute('title', tema === 'escuro' ? 'Mudar para tema claro' : 'Mudar para tema escuro');
+  botaoTema.setAttribute('title', temaNormalizado === 'dark' ? 'Mudar para tema claro' : 'Mudar para tema escuro');
 }
 
 // Carrega tema salvo ou preferência do sistema
 const temaSalvo = localStorage.getItem('tema');
 const prefEscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
-const temaInicial = temaSalvo || (prefEscuro ? 'escuro' : 'claro');
+const temaInicial = normalizarTema(temaSalvo) || (prefEscuro ? 'dark' : 'light');
 aplicarTema(temaInicial);
 
 botaoTema.addEventListener('click', () => {
   const temaAtual = htmlEl.getAttribute('data-theme');
-  const novoTema  = temaAtual === 'escuro' ? 'claro' : 'escuro';
+  const novoTema  = temaAtual === 'dark' ? 'light' : 'dark';
   aplicarTema(novoTema);
   localStorage.setItem('tema', novoTema);
 });
@@ -83,6 +90,13 @@ menuEl.querySelectorAll('.nav-link').forEach(link => {
 // Fecha ao clicar fora do menu
 document.addEventListener('click', (e) => {
   if (!header.contains(e.target)) {
+    fecharMenu();
+  }
+});
+
+// Garante que o menu mobile não fique "preso" ao voltar para desktop
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) {
     fecharMenu();
   }
 });
