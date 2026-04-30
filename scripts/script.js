@@ -8,7 +8,8 @@
      5. Scroll suave para seções
      6. Animações ao rolar (Intersection Observer)
      7. Validação simples do formulário de contato
-     8. Ano atual no rodapé
+    8. Ano atual no rodapé
+    9. Cópia de e-mail com toast visual
    ============================================================ */
 
 'use strict';
@@ -228,3 +229,63 @@ const spanAno = document.getElementById('ano-atual');
 if (spanAno) {
   spanAno.textContent = new Date().getFullYear();
 }
+
+/* ============================================================
+   8. COPIAR E-MAIL AO CLICAR NO ÍCONE/LINK
+   ============================================================ */
+const linksEmail = document.querySelectorAll('a[href^="mailto:"]');
+
+async function copiarParaAreaDeTransferencia(texto) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(texto);
+    return;
+  }
+
+  // Fallback para navegadores mais antigos
+  const textarea = document.createElement('textarea');
+  textarea.value = texto;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'absolute';
+  textarea.style.left = '-9999px';
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textarea);
+}
+
+function mostrarToast(texto, tipo = 'sucesso') {
+  const anterior = document.querySelector('.toast-feedback');
+  if (anterior) anterior.remove();
+
+  const toast = document.createElement('div');
+  toast.className = `toast-feedback ${tipo === 'erro' ? 'erro' : 'sucesso'}`;
+  toast.setAttribute('role', 'status');
+  toast.setAttribute('aria-live', 'polite');
+  toast.textContent = texto;
+  document.body.appendChild(toast);
+
+  requestAnimationFrame(() => {
+    toast.classList.add('show');
+  });
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 250);
+  }, 2200);
+}
+
+linksEmail.forEach(link => {
+  link.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const href = link.getAttribute('href') || '';
+    const email = href.replace('mailto:', '').trim();
+    if (!email) return;
+
+    try {
+      await copiarParaAreaDeTransferencia(email);
+      mostrarToast('E-mail copiado para a área de transferência!');
+    } catch {
+      mostrarToast('Não foi possível copiar o e-mail.', 'erro');
+    }
+  });
+});
