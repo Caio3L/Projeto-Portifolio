@@ -12,91 +12,98 @@
     9. Cópia de e-mail com toast visual
    ============================================================ */
 
-'use strict';
+"use strict";
 
 /* ============================================================
    1. TEMA CLARO / ESCURO
    ============================================================ */
-const botaoTema  = document.getElementById('botao-tema');
-const htmlEl     = document.documentElement; // <html data-theme="...">
+const botaoTema = document.getElementById("botao-tema");
+const htmlEl = document.documentElement; // <html data-theme="...">
 
 function normalizarTema(tema) {
-  if (tema === 'escuro') return 'dark';
-  if (tema === 'claro') return 'light';
-  return tema === 'light' ? 'light' : 'dark';
+  if (tema === "escuro") return "dark";
+  if (tema === "claro") return "light";
+  return tema === "light" ? "light" : "dark";
 }
 
 function aplicarTema(tema) {
   const temaNormalizado = normalizarTema(tema);
-  htmlEl.setAttribute('data-theme', temaNormalizado);
-  const icone = botaoTema.querySelector('i');
+  htmlEl.setAttribute("data-theme", temaNormalizado);
+  const icone = botaoTema.querySelector("i");
   if (icone) {
-    icone.className = temaNormalizado === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    icone.className =
+      temaNormalizado === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
   }
-  botaoTema.setAttribute('title', temaNormalizado === 'dark' ? 'Mudar para tema claro' : 'Mudar para tema escuro');
+  botaoTema.setAttribute(
+    "title",
+    temaNormalizado === "dark"
+      ? "Mudar para tema claro"
+      : "Mudar para tema escuro",
+  );
 }
 
 // Carrega tema salvo ou preferência do sistema
-const temaSalvo = localStorage.getItem('tema');
-const prefEscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
-const temaInicial = normalizarTema(temaSalvo) || (prefEscuro ? 'dark' : 'light');
+const temaSalvo = localStorage.getItem("tema");
+const prefEscuro = window.matchMedia("(prefers-color-scheme: dark)").matches;
+const temaInicial =
+  normalizarTema(temaSalvo) || (prefEscuro ? "dark" : "light");
 aplicarTema(temaInicial);
 
-botaoTema.addEventListener('click', () => {
-  const temaAtual = htmlEl.getAttribute('data-theme');
-  const novoTema  = temaAtual === 'dark' ? 'light' : 'dark';
+botaoTema.addEventListener("click", () => {
+  const temaAtual = htmlEl.getAttribute("data-theme");
+  const novoTema = temaAtual === "dark" ? "light" : "dark";
   aplicarTema(novoTema);
-  localStorage.setItem('tema', novoTema);
+  localStorage.setItem("tema", novoTema);
 });
 
 /* ============================================================
    2. HEADER COM GLASSMORPHISM AO ROLAR
    ============================================================ */
-const header = document.getElementById('header');
+const header = document.getElementById("header");
 
 function atualizarHeader() {
   if (window.scrollY > 20) {
-    header.classList.add('scrolled');
+    header.classList.add("scrolled");
   } else {
-    header.classList.remove('scrolled');
+    header.classList.remove("scrolled");
   }
 }
 
-window.addEventListener('scroll', atualizarHeader, { passive: true });
+window.addEventListener("scroll", atualizarHeader, { passive: true });
 atualizarHeader(); // Executa no carregamento caso já esteja com scroll
 
 /* ============================================================
    3. MENU HAMBÚRGUER (MOBILE)
    ============================================================ */
-const menuEl       = document.getElementById('menu');
-const hamburger    = document.getElementById('menu-hamburguer');
+const menuEl = document.getElementById("menu");
+const hamburger = document.getElementById("menu-hamburguer");
 
 function fecharMenu() {
-  menuEl.classList.remove('open');
-  hamburger.classList.remove('open');
-  hamburger.setAttribute('aria-expanded', 'false');
+  menuEl.classList.remove("open");
+  hamburger.classList.remove("open");
+  hamburger.setAttribute("aria-expanded", "false");
 }
 
-hamburger.addEventListener('click', () => {
-  const estaAberto = menuEl.classList.toggle('open');
-  hamburger.classList.toggle('open', estaAberto);
-  hamburger.setAttribute('aria-expanded', String(estaAberto));
+hamburger.addEventListener("click", () => {
+  const estaAberto = menuEl.classList.toggle("open");
+  hamburger.classList.toggle("open", estaAberto);
+  hamburger.setAttribute("aria-expanded", String(estaAberto));
 });
 
 // Fecha o menu ao clicar em qualquer link
-menuEl.querySelectorAll('.nav-link').forEach(link => {
-  link.addEventListener('click', fecharMenu);
+menuEl.querySelectorAll(".nav-link").forEach((link) => {
+  link.addEventListener("click", fecharMenu);
 });
 
 // Fecha ao clicar fora do menu
-document.addEventListener('click', (e) => {
+document.addEventListener("click", (e) => {
   if (!header.contains(e.target)) {
     fecharMenu();
   }
 });
 
 // Garante que o menu mobile não fique "preso" ao voltar para desktop
-window.addEventListener('resize', () => {
+window.addEventListener("resize", () => {
   if (window.innerWidth > 768) {
     fecharMenu();
   }
@@ -105,106 +112,142 @@ window.addEventListener('resize', () => {
 /* ============================================================
    4. LINK ATIVO + SCROLL SUAVE
    ============================================================ */
-const navLinks = document.querySelectorAll('#menu .nav-link');
-const sections = document.querySelectorAll('main section[id]');
+const navLinks = document.querySelectorAll("#menu .nav-link");
+const sections = document.querySelectorAll("main section[id]");
 
 // Scroll suave com offset do header fixo
-navLinks.forEach(link => {
-  link.addEventListener('click', (e) => {
-    const href = link.getAttribute('href');
-    if (!href.startsWith('#')) return;
+navLinks.forEach((link) => {
+  link.addEventListener("click", (e) => {
+    const href = link.getAttribute("href");
+    if (!href.startsWith("#")) return;
     e.preventDefault();
 
     const target = document.querySelector(href);
     if (!target) return;
 
     const offset = header.offsetHeight + 16;
-    const top    = target.getBoundingClientRect().top + window.scrollY - offset;
+    const top = target.getBoundingClientRect().top + window.scrollY - offset;
 
-    window.scrollTo({ top, behavior: 'smooth' });
+    window.scrollTo({ top, behavior: "smooth" });
   });
 });
 
 // Destaca o link ativo conforme a seção visível
-const observerNav = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    const id = entry.target.getAttribute('id');
-    navLinks.forEach(link => {
-      link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+const observerNav = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const id = entry.target.getAttribute("id");
+      navLinks.forEach((link) => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
+      });
     });
-  });
-}, {
-  rootMargin: `-${(header?.offsetHeight || 68) + 20}px 0px -60% 0px`,
-  threshold: 0,
-});
+  },
+  {
+    rootMargin: `-${(header?.offsetHeight || 68) + 20}px 0px -60% 0px`,
+    threshold: 0,
+  },
+);
 
-sections.forEach(sec => observerNav.observe(sec));
+sections.forEach((sec) => observerNav.observe(sec));
 
 /* ============================================================
    5. ANIMAÇÕES DE SCROLL (Intersection Observer)
    ============================================================ */
-const revealElements = document.querySelectorAll('.reveal');
+const revealElements = document.querySelectorAll(".reveal");
 
-const observerReveal = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      observerReveal.unobserve(entry.target); // anima apenas uma vez
-    }
-  });
-}, {
-  threshold: 0.12,
-  rootMargin: '0px 0px -40px 0px',
-});
+const observerReveal = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observerReveal.unobserve(entry.target); // anima apenas uma vez
+      }
+    });
+  },
+  {
+    threshold: 0.12,
+    rootMargin: "0px 0px -40px 0px",
+  },
+);
 
-revealElements.forEach(el => observerReveal.observe(el));
+revealElements.forEach((el) => observerReveal.observe(el));
 
 /* ============================================================
    6. VALIDAÇÃO DO FORMULÁRIO DE CONTATO
    ============================================================ */
-const formContato = document.getElementById('form-contato');
-const btnEnviar   = document.getElementById('btn-enviar');
+const formContato = document.getElementById("form-contato");
+const btnEnviar = document.getElementById("btn-enviar");
 
 if (formContato) {
-  formContato.addEventListener('submit', (e) => {
+  formContato.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const nome     = document.getElementById('input-nome').value.trim();
-    const email    = document.getElementById('input-email').value.trim();
-    const mensagem = document.getElementById('input-mensagem').value.trim();
+    const nome = document.getElementById("input-nome").value.trim();
+    const email = document.getElementById("input-email").value.trim();
+    const mensagem = document.getElementById("input-mensagem").value.trim();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!nome || !email || !mensagem) {
-      mostrarFeedback('Por favor, preencha todos os campos.', 'erro');
+      mostrarFeedback("Por favor, preencha todos os campos.", "erro");
       return;
     }
 
     if (!emailRegex.test(email)) {
-      mostrarFeedback('Por favor, insira um e-mail válido.', 'erro');
+      mostrarFeedback("Por favor, insira um e-mail válido.", "erro");
       return;
     }
 
-    // Simula envio (pode integrar com EmailJS, Formspree, etc.)
-    btnEnviar.disabled = true;
-    btnEnviar.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
-
-    setTimeout(() => {
-      mostrarFeedback('Mensagem enviada com sucesso! Em breve entrarei em contato. 🎉', 'sucesso');
-      formContato.reset();
-      btnEnviar.disabled = false;
-      btnEnviar.innerHTML = 'Enviar mensagem <i class="fa-solid fa-paper-plane"></i>';
-    }, 1800);
+    enviarFormularioContato();
   });
+}
+
+async function enviarFormularioContato() {
+  btnEnviar.disabled = true;
+  btnEnviar.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
+
+  try {
+    const formData = new FormData(formContato);
+
+    const response = await fetch(formContato.action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (response.ok) {
+      mostrarFeedback("Mensagem enviada com sucesso! Em breve entrarei em contato.", "sucesso");
+      formContato.reset();
+      return;
+    }
+
+    let errorMsg = "Não foi possível enviar a mensagem. Tente novamente.";
+    try {
+      const data = await response.json();
+      if (data?.errors?.length) {
+        errorMsg = data.errors.map((err) => err.message).join(" ");
+      }
+    } catch {
+      // ignora parse de JSON (resposta pode não ser JSON)
+    }
+    mostrarFeedback(errorMsg, "erro");
+  } catch {
+    mostrarFeedback("Falha de rede ao enviar. Verifique sua conexão e tente novamente.", "erro");
+  } finally {
+    btnEnviar.disabled = false;
+    btnEnviar.innerHTML = 'Enviar mensagem <i class="fa-solid fa-paper-plane"></i>';
+  }
 }
 
 function mostrarFeedback(texto, tipo) {
   // Remove feedback anterior, se houver
-  const anterior = document.querySelector('.form-feedback');
+  const anterior = document.querySelector(".form-feedback");
   if (anterior) anterior.remove();
 
-  const el = document.createElement('p');
-  el.className = 'form-feedback';
+  const el = document.createElement("p");
+  el.className = "form-feedback";
   el.textContent = texto;
   el.style.cssText = `
     margin-top: -8px;
@@ -212,12 +255,12 @@ function mostrarFeedback(texto, tipo) {
     border-radius: 8px;
     font-size: 0.88rem;
     font-weight: 500;
-    background: ${tipo === 'sucesso' ? 'rgba(56,189,248,0.12)' : 'rgba(255,100,100,0.1)'};
-    color: ${tipo === 'sucesso' ? '#38bdf8' : '#ff6b6b'};
-    border: 1px solid ${tipo === 'sucesso' ? 'rgba(56,189,248,0.25)' : 'rgba(255,100,100,0.2)'};
+    background: ${tipo === "sucesso" ? "rgba(56,189,248,0.12)" : "rgba(255,100,100,0.1)"};
+    color: ${tipo === "sucesso" ? "#38bdf8" : "#ff6b6b"};
+    border: 1px solid ${tipo === "sucesso" ? "rgba(56,189,248,0.25)" : "rgba(255,100,100,0.2)"};
   `;
 
-  btnEnviar.insertAdjacentElement('beforebegin', el);
+  btnEnviar.insertAdjacentElement("beforebegin", el);
 
   setTimeout(() => el.remove(), 5000);
 }
@@ -225,7 +268,7 @@ function mostrarFeedback(texto, tipo) {
 /* ============================================================
    7. ANO ATUAL NO RODAPÉ
    ============================================================ */
-const spanAno = document.getElementById('ano-atual');
+const spanAno = document.getElementById("ano-atual");
 if (spanAno) {
   spanAno.textContent = new Date().getFullYear();
 }
@@ -236,56 +279,49 @@ if (spanAno) {
 const linksEmail = document.querySelectorAll('a[href^="mailto:"]');
 
 async function copiarParaAreaDeTransferencia(texto) {
-  if (navigator.clipboard?.writeText) {
+  if (navigator.clipboard?.writeText && window.isSecureContext) {
     await navigator.clipboard.writeText(texto);
     return;
   }
 
-  // Fallback para navegadores mais antigos
-  const textarea = document.createElement('textarea');
-  textarea.value = texto;
-  textarea.setAttribute('readonly', '');
-  textarea.style.position = 'absolute';
-  textarea.style.left = '-9999px';
-  document.body.appendChild(textarea);
-  textarea.select();
-  document.execCommand('copy');
-  document.body.removeChild(textarea);
+  // Fallback sem APIs deprecated: pede cópia manual
+  const msg = "Copie o e-mail (Ctrl+C / Cmd+C) e confirme:";
+  window.prompt(msg, texto);
 }
 
-function mostrarToast(texto, tipo = 'sucesso') {
-  const anterior = document.querySelector('.toast-feedback');
+function mostrarToast(texto, tipo = "sucesso") {
+  const anterior = document.querySelector(".toast-feedback");
   if (anterior) anterior.remove();
 
-  const toast = document.createElement('div');
-  toast.className = `toast-feedback ${tipo === 'erro' ? 'erro' : 'sucesso'}`;
-  toast.setAttribute('role', 'status');
-  toast.setAttribute('aria-live', 'polite');
+  const toast = document.createElement("div");
+  toast.className = `toast-feedback ${tipo === "erro" ? "erro" : "sucesso"}`;
+  toast.setAttribute("role", "status");
+  toast.setAttribute("aria-live", "polite");
   toast.textContent = texto;
   document.body.appendChild(toast);
 
   requestAnimationFrame(() => {
-    toast.classList.add('show');
+    toast.classList.add("show");
   });
 
   setTimeout(() => {
-    toast.classList.remove('show');
+    toast.classList.remove("show");
     setTimeout(() => toast.remove(), 250);
   }, 2200);
 }
 
-linksEmail.forEach(link => {
-  link.addEventListener('click', async (e) => {
+linksEmail.forEach((link) => {
+  link.addEventListener("click", async (e) => {
     e.preventDefault();
-    const href = link.getAttribute('href') || '';
-    const email = href.replace('mailto:', '').trim();
+    const href = link.getAttribute("href") || "";
+    const email = href.replace("mailto:", "").trim();
     if (!email) return;
 
     try {
       await copiarParaAreaDeTransferencia(email);
-      mostrarToast('E-mail copiado para a área de transferência!');
+      mostrarToast("E-mail copiado para a área de transferência!");
     } catch {
-      mostrarToast('Não foi possível copiar o e-mail.', 'erro');
+      mostrarToast("Não foi possível copiar o e-mail.", "erro");
     }
   });
 });
